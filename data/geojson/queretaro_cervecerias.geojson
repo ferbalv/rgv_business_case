@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "queretaro_cervecerias",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "nom_estab": "CERVECERIA CUATRO PALOS", "per_ocu": "6 a 10 personas", "latitud": 20.60482745, "longitud": -100.41116942, "ig_followers": 17400, "views_viral_video": null, "norm_name": "Cerveceria Cuatro Palos", "cve_mun": "014", "map_label": "Cerveceria Cuatro Palos\nViews: N/D" }, "geometry": { "type": "Point", "coordinates": [ -100.41116942, 20.60482745 ] } },
+{ "type": "Feature", "properties": { "nom_estab": "COMPAÑIA CERVECERA HERCULES", "per_ocu": "11 a 30 personas", "latitud": 20.59884693, "longitud": -100.35667121, "ig_followers": 102000, "views_viral_video": 129000.0, "norm_name": "Compañia Cervecera Hercules", "cve_mun": "014", "map_label": "Compañia Cervecera Hercules\nViews: 129,000" }, "geometry": { "type": "Point", "coordinates": [ -100.35667121, 20.59884693 ] } }
+]
+}
