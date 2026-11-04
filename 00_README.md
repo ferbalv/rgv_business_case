@@ -1,6 +1,20 @@
 # RGV Business Case
 
-RGV business case repository - Nov, 2026.
+Este repositorio contiene los archivos del ejercicio 2 descritos en `20261008 RGV Assessment.pdf`. A continuación, se resume el contenido:
+
+## Contenido del repositorio
+
+- `data/`: contiene los datos del DENUE para el estado de Querétaro: `00_denue_inegi_22.csv` y los datasets `01_denue0526_ 312120_elab_cerveza.csv` y `02_denue0526_461212_comercio_cerveza.csv`. También incluye los archivos auxiliares `03_brewing_comp_metrics.json` y `04_nse_qro.geojson`.
+- `data/geojson/`: contiene los archivos GeoJSON utilizados para construir los mapas.
+- `data/maps_polygons/`: contiene los archivos utilizados para construir los polígonos de los municipios de Querétaro y San Juan del Río.
+- `maps/`: contiene los mapas solicitados en formato PNG y los mapas interactivos en HTML, construidos con Kepler.gl. También incluye un archivo GeoJSON con los polígonos de Voronoi.
+- `00_README.md`: describe los archivos e incluye instrucciones para crear el entorno virtual (`venv`).
+- `01_dataspitter.py`: procesa los datos del DENUE y los divide en dos datasets para facilitar la construcción de los mapas.
+- `02_mapas.py`: genera los mapas.
+- `03_voronoi_map_py`: calcula los polígonos de Voronoi.
+- `04_map_kepler.ipynb`: notebook de Jupyter que construye los mapas en Kepler.gl.
+
+A continuación, se muestran las instrucciones para correr el entorno virtual (en ingles, construido por un agente).
 
 ## Setup
 
@@ -8,10 +22,8 @@ Follow these steps in a terminal after cloning the repository. The commands belo
 
 ### 1. Clone the repository and enter its folder
 
-Replace `<repository-url>` with the URL for this repository:
-
 ```bash
-git clone <repository-url>
+git clone https://github.com/ferbalv/rgv_business_case.git
 cd rgv_business_case
 ```
 

@@ -14,19 +14,27 @@ maps_dir = root / "maps"
 maps_dir.mkdir(exist_ok=True)
 
 commerce = pd.read_csv(
-    data_dir / "denue052026_461212_comercio_cerveza.csv",
+    data_dir / "02_denue0526_461212_comercio_cerveza.csv",
     encoding="utf-8-sig",
     dtype={"cve_mun": str},
     usecols=["nom_estab", "latitud", "longitud", "cve_mun"],
 )
 
 municipalities = {
-    "014": "queretaro",
-    "016": "san_juan_del_rio",
+    "014": (
+        "queretaro",
+        "Querétaro",
+        "03_queretaro_voronoi.png",
+    ),
+    "016": (
+        "san_juan_del_rio",
+        "San Juan del Río",
+        "04_san_juan_del_rio_voronoi.png",
+    ),
 }
 voronoi_cities = []
 
-for code, city in municipalities.items():
+for code, (city, display_name, map_filename) in municipalities.items():
     boundary_path = geojson_dir / f"{city}_poligono.geojson"
     boundary = gpd.read_file(boundary_path)
     if boundary.empty:
@@ -96,24 +104,148 @@ for code, city in municipalities.items():
 
     boundary = boundary.to_crs(epsg=4326)
     sites = sites.to_crs(epsg=4326)
-    ax = voronoi.plot(
-        column="establishment_count",
-        cmap="tab20",
-        edgecolor="white",
-        linewidth=0.25,
-        figsize=(10, 10),
-        legend=False,
+    map_boundary = boundary.to_crs(epsg=32614)
+    map_voronoi = voronoi.to_crs(epsg=32614)
+    map_sites = sites.to_crs(epsg=32614)
+    min_x, min_y, max_x, max_y = map_boundary.total_bounds
+    x_margin = (max_x - min_x) * 0.12
+    y_margin = (max_y - min_y) * 0.12
+
+    fig = plt.figure(figsize=(10, 12), facecolor="#F5F7FA")
+    layout = fig.add_gridspec(
+        4,
+        1,
+        height_ratios=(0.9, 7.3, 0.55, 1.15),
+        left=0.08,
+        right=0.92,
+        top=0.96,
+        bottom=0.04,
+        hspace=0.02,
     )
-    boundary.boundary.plot(ax=ax, color="black", linewidth=1)
-    sites.plot(ax=ax, color="black", markersize=5)
-    ax.set_title(f"Voronoi de comercios de cerveza: {city.replace('_', ' ').title()}")
-    ax.set_axis_off()
-    ax.figure.savefig(
-        maps_dir / f"{city}_voronoi.png",
-        dpi=200,
-        bbox_inches="tight",
+    header_ax, map_ax, legend_ax, footer_ax = (
+        fig.add_subplot(layout[row]) for row in range(4)
     )
-    plt.close(ax.figure)
+
+    header_ax.set_axis_off()
+    header_ax.text(
+        0.5,
+        0.88,
+        "RGV Soluciones  |  Cervecería Maxi",
+        transform=header_ax.transAxes,
+        ha="center",
+        va="center",
+        fontsize=9,
+        fontweight="bold",
+        color="#52708A",
+    )
+    header_ax.text(
+        0.5,
+        0.42,
+        "Áreas de influencia de comercios de cerveza en "
+        f"la ciudad de {display_name}",
+        transform=header_ax.transAxes,
+        ha="center",
+        va="center",
+        fontsize=14,
+        fontweight="bold",
+        color="#1D2D3E",
+    )
+    header_ax.text(
+        0.5,
+        0.08,
+        "Polígonos de Voronoi y ubicación de establecimientos comerciales",
+        transform=header_ax.transAxes,
+        ha="center",
+        va="center",
+        fontsize=9,
+        color="#647588",
+    )
+
+    map_ax.set_facecolor("#F5F7FA")
+    map_voronoi.plot(
+        ax=map_ax,
+        color="#DCE8EF",
+        edgecolor="black",
+        linewidth=0.45,
+    )
+    map_boundary.boundary.plot(
+        ax=map_ax,
+        color="#405B70",
+        linewidth=1.4,
+    )
+    map_ax.scatter(
+        map_sites.geometry.x,
+        map_sites.geometry.y,
+        s=22,
+        color="#147D92",
+        edgecolors="white",
+        linewidths=0.7,
+        zorder=3,
+    )
+    map_ax.set_xlim(min_x - x_margin, max_x + x_margin)
+    map_ax.set_ylim(min_y - y_margin, max_y + y_margin)
+    map_ax.set_aspect("equal", adjustable="box")
+    map_ax.set_axis_off()
+
+    legend_ax.set_axis_off()
+    legend_ax.scatter(
+        0.28,
+        0.5,
+        s=24,
+        color="#147D92",
+        edgecolors="white",
+        linewidths=0.7,
+        transform=legend_ax.transAxes,
+        clip_on=False,
+    )
+    legend_ax.text(
+        0.31,
+        0.5,
+        "Establecimientos comerciales (símbolos de tamaño uniforme)",
+        transform=legend_ax.transAxes,
+        ha="left",
+        va="center",
+        fontsize=8,
+        color="#526273",
+    )
+
+    footer_ax.set_axis_off()
+    footer_ax.plot(
+        [0, 1],
+        [0.96, 0.96],
+        transform=footer_ax.transAxes,
+        color="#D9E1E8",
+        linewidth=0.8,
+        clip_on=False,
+    )
+    footer_ax.text(
+        0.02,
+        0.66,
+        'Nota: Datos con base en DENUE (INEGI) para empresas en la rama '
+        '"461212 Comercio al por menor de cerveza".',
+        transform=footer_ax.transAxes,
+        ha="left",
+        va="center",
+        fontsize=7,
+        color="#526273",
+    )
+    footer_ax.text(
+        0.02,
+        0.31,
+        "Nota 2: Para más detalles sobre los mapas y el nivel socioeconómico, "
+        "consultar 06_voronoi_qro.html.",
+        transform=footer_ax.transAxes,
+        ha="left",
+        va="center",
+        fontsize=7,
+        color="#526273",
+    )
+    fig.savefig(
+        maps_dir / map_filename,
+        dpi=250,
+        facecolor=fig.get_facecolor(),
+    )
+    plt.close(fig)
 
     print(
         f"{city}: created {len(voronoi)} clipped Voronoi polygons "

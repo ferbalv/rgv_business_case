@@ -1,20 +1,17 @@
-# Este codigo construye dos archivos a partir del dataset "denue_inegi_22.csv":
-# denue_052026_312120_elab_cerveza.csv y denue_052026_461212_comercio_cerveza.csv
-# Nota informal: reconozco que el nombre de los archivos no es el mejor y son poco practicos para escribir o leer codigo.
-# Los nombres son para fines del ejercicio y darle mas contexto al evaluador.
+# Este código construye dos archivos a partir de "00_denue_inegi_22.csv".
 
 import csv
 from pathlib import Path
 
 
 data_dir = Path(__file__).resolve().parent / "data"
-# Los datos los descargué del DENUE para todo el estado de Queretaro.
-source_path = data_dir / "denue_inegi_22_.csv"
+# Los datos se descargaron del DENUE para todo el estado de Querétaro.
+source_path = data_dir / "00_denue_inegi_22.csv"
 
-# Del archivo "denue_inegi_32.csv" voy a contruir dos archivos filtrados por código de actividad.
+# Del archivo fuente se construyen dos archivos filtrados por código de actividad.
 output_paths = {
-	"312120": data_dir / "denue052026_ 312120_elab_cerveza.csv", # Dataset filtrado para cerveceras
-	"461212": data_dir / "denue052026_461212_comercio_cerveza.csv", #Dataset filtrado para empresas que comercializan cervezas al por menor. 
+	"312120": data_dir / "01_denue0526_ 312120_elab_cerveza.csv",
+	"461212": data_dir / "02_denue0526_461212_comercio_cerveza.csv",
 }
 
 municipality_codes = {"014", "016"} # Códigos de los municipios de Queretaro y San Juan del Río, respectivamente. 
