@@ -1,10 +1,12 @@
 # RGV Business Case
+Link del repositorio: https://github.com/ferbalv/rgv_business_case
+Link de mapas: https://ferbalv.github.io/rgv_business_case/maps/06_voronoi_qro.html y https://ferbalv.github.io/rgv_business_case/maps/05_brewings_qro.html
 
 Este repositorio contiene los archivos del ejercicio 2 descritos en `20261008 RGV Assessment.pdf`. A continuación, se resume el contenido:
 
 ## Contenido del repositorio
 
-- `data/`: contiene los datos del DENUE para el estado de Querétaro: `00_denue_inegi_22.csv` y los datasets `01_denue0526_ 312120_elab_cerveza.csv` y `02_denue0526_461212_comercio_cerveza.csv`. También incluye los archivos auxiliares `03_brewing_comp_metrics.json` y `04_nse_qro.geojson`.
+- `data/`: contiene los datos del DENUE para el estado de Querétaro (`00_denue_inegi_22.csv`) y los datasets `01_denue0526_ 312120_elab_cerveza.csv` y `02_denue0526_461212_comercio_cerveza.csv`. También incluye los archivos auxiliares `03_brewing_comp_metrics.json` y `04_nse_qro.geojson`.
 - `data/geojson/`: contiene los archivos GeoJSON utilizados para construir los mapas.
 - `data/maps_polygons/`: contiene los archivos utilizados para construir los polígonos de los municipios de Querétaro y San Juan del Río.
 - `maps/`: contiene los mapas solicitados en formato PNG y los mapas interactivos en HTML, construidos con Kepler.gl. También incluye un archivo GeoJSON con los polígonos de Voronoi.
