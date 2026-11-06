@@ -1,6 +1,7 @@
 # RGV Business Case
-Link del repositorio: https://github.com/ferbalv/rgv_business_case
-Link de mapas: https://ferbalv.github.io/rgv_business_case/maps/06_voronoi_qro.html y https://ferbalv.github.io/rgv_business_case/maps/05_brewings_qro.html
+Link del repositorio: [RGV Business Case](https://github.com/ferbalv/rgv_business_case)
+Link de mapas: [Voronoi](https://ferbalv.github.io/rgv_business_case/maps/06_voronoi_qro.html) y [Cervecerías](https://ferbalv.github.io/rgv_business_case/maps/05_brewings_qro.html)
+Link Google Sheets: [Google Sheets](https://docs.google.com/spreadsheets/d/1ASmtTRtTbqUnTtVMc79xMOlt7d4u_U_QOHlMll9uF_E/edit?usp=sharing)
 
 Este repositorio contiene los archivos del ejercicio 2 descritos en `20261008 RGV Assessment.pdf`. A continuación, se resume el contenido:
 
